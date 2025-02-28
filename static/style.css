@@ -1,0 +1,314 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Dark Theme Gradient Background */
+body {
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Modern Gradient Title with Glowing Effect */
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    90deg,
+    #ff7eb3,
+    #ff758c,
+    #ff6f61,
+    #ffaa42,
+    #d8ff73,
+    #7affa5,
+    #6bff7f
+  );
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowGlow 4s infinite alternate;
+}
+
+/* Current Player Indicator with Animated Background */
+.current-player {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  animation: pulse 2s infinite;
+}
+
+/* Board Container */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(80px, 1fr));
+  gap: 10px;
+  width: 90%;
+  max-width: 350px;
+}
+
+/* Cell Styling with Glassmorphism */
+.cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effects on Cells */
+.cell:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Different Colors for X and O */
+.cell.X {
+  color: #ff6f61; /* Red for X */
+}
+
+.cell.O {
+  color: #6bff7f; /* Green for O */
+}
+
+/* Smooth Animations */
+@keyframes rainbowGlow {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
+      0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .current-player {
+    font-size: 1.2rem;
+    padding: 8px 16px;
+  }
+
+  .board {
+    gap: 8px;
+  }
+
+  .cell {
+    font-size: 1.5rem;
+  }
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.2s ease-in-out;
+}
+
+/* Winner Announcement */
+.winner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.winner-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.winner-text {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 0 0 20px #ff6f61, 0 0 30px #6bff7f;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ff6f61, 0 0 20px #6bff7f;
+  }
+  to {
+    text-shadow: 0 0 20px #ff6f61, 0 0 30px #6bff7f;
+  }
+}
+
+/* Balloon Animation */
+.balloon {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  background: linear-gradient(135deg, #ff6f61, #6bff7f);
+  border-radius: 50%;
+  bottom: -100px;
+  animation: float-up 5s ease-in-out forwards;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Reset Animation */
+.board.spin {
+  animation: spinAndReset 2s ease-in-out forwards;
+}
+
+@keyframes spinAndReset {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(360deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.reset-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 20px #ff6f61, 0 0 30px #6bff7f;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.reset-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Waiting Message Styling */
+.waiting-message {
+  margin-top: 20px;
+  font-size: 1.2rem; /* Size of the main text */
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.waiting-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dot Animation */
+.dots {
+  display: inline-block;
+  font-size: 1.8rem; /* Increase the size of the dots */
+  vertical-align: middle; /* Align dots with the text */
+  overflow: hidden; /* Hide overflowing dots */
+  width: 2em; /* Adjust width to fit larger dots */
+}
+
+@keyframes dot-animation {
+  0% {
+    content: ".";
+  }
+  10% {
+    content: "..";
+  }
+  20% {
+    content: "...";
+  }
+  30% {
+    content: "....";
+  }
+  43% {
+    content: ".....";
+  }
+  55% {
+    content: "......";
+  }
+  79% {
+    content: ".......";
+  }
+  100% {
+    content: "";
+  }
+}
+
+.dots::after {
+  content: ".";
+  animation: dot-animation 3s infinite;
+}
